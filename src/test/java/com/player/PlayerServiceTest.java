@@ -64,8 +64,7 @@ public class PlayerServiceTest {
 		
 		String expectedMessage = "RequiredTopPlayers field is missing";
 	    String actualMessage = exception.getMessage();
-
-	    assertTrue(actualMessage.contains(expectedMessage));
+ 	    assertTrue(actualMessage.contains(expectedMessage));
 		 
 	}
 	
