@@ -24,15 +24,13 @@ import com.player.services.PlayersServiceImpl;
 public class PlayerServiceTest {
 	
 	@Autowired
-	private PlayersServiceImpl playerService;
-	 
-	
+	private PlayersServiceImpl playerService;	 	
 	private ObjectMapper objectMapper;
 	
 	 
 	@Test
 	public void getTopThreePlayer_Success() throws InvalidPlayerException, IOException {
-		  
+
 		File file = ResourceUtils.getFile("classpath:test1.json");
 		objectMapper = new ObjectMapper();
 		PlayerContract playerContract = objectMapper.readValue(file, PlayerContract.class);
@@ -40,10 +38,10 @@ public class PlayerServiceTest {
 		assertTrue(jsonResponse.contentEquals("for N=2: mostParticipatedPlayers:[Ronaldo,Shalom]"));
 
 	}
-	
+
 	@Test
 	public void getTopFirstPlayer_Success() throws InvalidPlayerException, IOException {
-		  
+
 		File file = ResourceUtils.getFile("classpath:test2.json");
 		objectMapper = new ObjectMapper();
 		PlayerContract playerContract = objectMapper.readValue(file, PlayerContract.class);
@@ -51,22 +49,21 @@ public class PlayerServiceTest {
 		assertTrue(jsonResponse.contentEquals("for N=1: mostParticipatedPlayers:[Ronaldo]"));
 
 	}
-	
-	@Test 
- 	public void getTopFirstPlayer_whenExceptionIsThrown() throws JsonMappingException, JsonProcessingException {
-		String json =   "{}";
-		objectMapper=new ObjectMapper();
+
+	@Test
+	public void getTopFirstPlayer_whenExceptionIsThrown() throws JsonMappingException, JsonProcessingException {
+		String json = "{}";
+		objectMapper = new ObjectMapper();
 		PlayerContract playerContract = objectMapper.readValue(json, PlayerContract.class);
-		Exception exception=Assertions.assertThrows(InvalidPlayerException.class, () -> {
+		Exception exception = Assertions.assertThrows(InvalidPlayerException.class, () -> {
 			playerService.getMostParticipantPlayers(playerContract);
-	
-		  });
-		
+
+		});
+
 		String expectedMessage = "RequiredTopPlayers field is missing";
-	    String actualMessage = exception.getMessage();
- 	    assertTrue(actualMessage.contains(expectedMessage));
-		 
+		String actualMessage = exception.getMessage();
+		assertTrue(actualMessage.contains(expectedMessage));
+
 	}
-	
 
 }
