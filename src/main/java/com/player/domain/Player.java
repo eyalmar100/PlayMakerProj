@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 public class Player implements Comparable<Player> {
 	private String name;
-	private int age;// 
+	private int age;// In real app usually there are other properties like age, num-of-goals , etc
 	private int numOfParticipantsGames;
 	
 	public Player(String name) {
