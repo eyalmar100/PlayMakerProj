@@ -3,33 +3,17 @@ package com.player;
  
 
 import static org.junit.Assert.assertTrue;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UncheckedIOException;
-import java.nio.file.Files;
-
-//import org.apache.tomcat.util.http.fileupload.FileUtils;
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.FileCopyUtils;
-//import org.springframework.util.ResourceUtils;
 import org.springframework.util.ResourceUtils;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.player.contract.PlayerContract;
 import com.player.exception.InvalidPlayerException;
@@ -43,17 +27,28 @@ public class PlayerServiceTest {
 	private PlayersServiceImpl playerService;
 	 
 	
-	static ObjectMapper objectMapper;
+	private ObjectMapper objectMapper;
 	
 	 
 	@Test
-	public void getTopFirstPlayer_Success() throws InvalidPlayerException, IOException {
+	public void getTopThreePlayer_Success() throws InvalidPlayerException, IOException {
 		  
-		File file = ResourceUtils.getFile("classpath:test.json");
+		File file = ResourceUtils.getFile("classpath:test1.json");
 		objectMapper = new ObjectMapper();
 		PlayerContract playerContract = objectMapper.readValue(file, PlayerContract.class);
 		String jsonResponse = playerService.getMostParticipantPlayers(playerContract);
-		assertTrue(jsonResponse.contentEquals("for N=1: mostParticipatedPlayers:[Shalom]"));
+		assertTrue(jsonResponse.contentEquals("for N=2: mostParticipatedPlayers:[Ronaldo,Shalom]"));
+
+	}
+	
+	@Test
+	public void getTopFirstPlayer_Success() throws InvalidPlayerException, IOException {
+		  
+		File file = ResourceUtils.getFile("classpath:test2.json");
+		objectMapper = new ObjectMapper();
+		PlayerContract playerContract = objectMapper.readValue(file, PlayerContract.class);
+		String jsonResponse = playerService.getMostParticipantPlayers(playerContract);
+		assertTrue(jsonResponse.contentEquals("for N=1: mostParticipatedPlayers:[Ronaldo]"));
 
 	}
 	
