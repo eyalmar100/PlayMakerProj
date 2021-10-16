@@ -43,8 +43,7 @@ public class PlayersServiceImpl implements PlayerService {
 	@Override
 	public String getMostParticipantPlayers(PlayerContract playersContract) throws InvalidPlayerException {
 		this.playerContract = playersContract;
-		validateContract(playersContract);
-		
+		validateContract(playersContract);		
 		this.playersTableMap = new HashMap<>();
 		populatePlayersTable(playersContract);
 		sortByValueMap();
@@ -54,11 +53,25 @@ public class PlayersServiceImpl implements PlayerService {
 	}
 
 	private void validateContract(PlayerContract playersContract) throws InvalidPlayerException {
-		if(playersContract.getRequiredTopPlayers()==null)
-			throw new InvalidPlayerException("requitred json field missing :RequiredTopPlayers");
-		if(playersContract.getParticipatedPlayers()==null)
-			throw new InvalidPlayerException("requitred json field missing :ParticipatedPlayers");
-		
+		if(playersContract.getRequiredTopPlayers()==null) {
+			String message="RequiredTopPlayers field is missing";
+			log.error("error during process :{}",message);
+			throw new InvalidPlayerException(message);
+	
+		}
+		if(playersContract.getRequiredTopPlayers()<=0) {
+			String message="RequiredTopPlayers field value not valid , number must be bigger than zero";
+			log.error("error during process :RequiredTopPlayers {}",message);
+			throw new InvalidPlayerException(message);
+	
+		}
+		if(playersContract.getParticipatedPlayers()==null) {
+			String message="ParticipatedPlayers field is missing";
+			log.error("error during process :{}",message);
+			throw new InvalidPlayerException(message);
+	
+		}
+			
 	}
 
 	private void populatePlayersTable(PlayerContract playersContract) {
