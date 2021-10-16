@@ -80,7 +80,6 @@ public class PlayersServiceImpl implements PlayerService {
 			List<Player> players = playersList.get(i);
 			for (int j = 0; j < players.size(); j++) {
 				Player currentPlayerInList = players.get(j);
-				System.out.println("name is " + currentPlayerInList.getName());
 				Player currentPlayerInMap = playersTableMap.get(currentPlayerInList.getName());
 				if (currentPlayerInMap == null) {
 					currentPlayerInList.setNumOfParticipantsGames(1);

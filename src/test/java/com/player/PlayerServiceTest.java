@@ -57,10 +57,15 @@ public class PlayerServiceTest {
 		String json =   "{}";
 		objectMapper=new ObjectMapper();
 		PlayerContract playerContract = objectMapper.readValue(json, PlayerContract.class);
-		Assertions.assertThrows(InvalidPlayerException.class, () -> {
+		Exception exception=Assertions.assertThrows(InvalidPlayerException.class, () -> {
 			playerService.getMostParticipantPlayers(playerContract);
 	
 		  });
+		
+		String expectedMessage = "RequiredTopPlayers field is missing";
+	    String actualMessage = exception.getMessage();
+
+	    assertTrue(actualMessage.contains(expectedMessage));
 		 
 	}
 	

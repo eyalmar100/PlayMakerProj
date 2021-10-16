@@ -27,11 +27,9 @@ public class PlayersController {
 	@Autowired
 	private PlayerService playerService;
 
-	 
-	
-	
+ 	
 	@ApiMethod
-	@RequestMapping(value = "/players", method = RequestMethod.POST)	 
+	@RequestMapping(value = "/topNplayers", method = RequestMethod.POST)	 
 	public String getTopParticipantsPlayers(@RequestHeader HttpHeaders headers,@RequestBody PlayerContract playersContract) throws InvalidPlayerException {
 	   
 		log.info("headers valus :{} ",headers.toString());
