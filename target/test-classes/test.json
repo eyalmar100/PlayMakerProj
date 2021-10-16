@@ -1,0 +1,8 @@
+{  "requiredTopPlayers":3,
+       "participatedPlayers" : [
+       		 ["Sharon", "Shalom" , "Myke", "Ronaldo"],
+             ["Sharon", "Shalom" , "Myke", "Ronaldo"],
+             ["Yechiel", "Sivan" , "Messi", "Ronaldo"],
+             ["Yechiel", "Assaf" , "Shalom", "Ronaldo"]
+         ]
+}

@@ -41,43 +41,20 @@ public class PlayerServiceTest {
 	
 	@Autowired
 	private PlayersServiceImpl playerService;
-	
-	@Value("classpath:test.json")
-	private Resource resource;
+	 
 	
 	static ObjectMapper objectMapper;
 	
-	@BeforeClass
-	public static void setUp() {
-		objectMapper=new ObjectMapper();	
-	}
-	
+	 
 	@Test
 	public void getTopFirstPlayer_Success() throws InvalidPlayerException, IOException {
-		String json = " { \r\n" + 
-				"   \"requiredTopPlayers\": 1, " + 
-				"  \"participatedPlayers\" : [\r\n" + 
-				"              [ \"Shalom\" , \"Myke\",\"Ronaldo\"],\r\n" + 
-				"              [\"Eyal\", \"Shalom\" ,\"Shahar\"] \r\n" + 
-				"             ]\r\n" + 
-				"   \r\n" + 
-				" }";
-	
-	 	File file = ResourceUtils.getFile("classpath:test.json");
-	  
-	//	JsonNode mySchema = JsonLoader.fromFile(file);
-		
-		objectMapper=new ObjectMapper();
-		
-		 
-		PlayerContract playerContract   = objectMapper.readValue(file, PlayerContract.class);
-		   
-		 
-		
-		//PlayerContract playerContract = objectMapper.readValue(json, PlayerContract.class);
-		String jsonResponse=playerService.getMostParticipantPlayers(playerContract);
+		  
+		File file = ResourceUtils.getFile("classpath:test.json");
+		objectMapper = new ObjectMapper();
+		PlayerContract playerContract = objectMapper.readValue(file, PlayerContract.class);
+		String jsonResponse = playerService.getMostParticipantPlayers(playerContract);
 		assertTrue(jsonResponse.contentEquals("for N=1: mostParticipatedPlayers:[Shalom]"));
-		 
+
 	}
 	
 	@Test 
